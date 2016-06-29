@@ -1,0 +1,66 @@
+{
+  "name": "postcss-use",
+  "version": "2.2.0",
+  "description": "Enable PostCSS plugins directly in your stylesheet.",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "LICENSE-MIT"
+  ],
+  "scripts": {
+    "contributorAdd": "all-contributors add",
+    "contributorGenerate": "all-contributors generate",
+    "pretest": "eslint src/*.js src/__test__/*.js",
+    "prepublish": "del-cli dist && cross-env BABEL_ENV=publish babel src --out-dir dist --ignore /__tests__/",
+    "report": "nyc report --reporter=html",
+    "test": "nyc ava src/__tests__/*.js"
+  },
+  "keywords": [
+    "css",
+    "postcss",
+    "postcss-plugin"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "all-contributors-cli": "^3.0.4",
+    "autoprefixer": "^6.3.6",
+    "ava": "^0.15.0",
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.5.1",
+    "babel-plugin-add-module-exports": "^0.2.0",
+    "babel-preset-es2015-loose": "^7.0.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.9.0",
+    "coveralls": "^2.11.6",
+    "cross-env": "^1.0.7",
+    "cssnext": "^1.8.4",
+    "csswring": "^5.0.0",
+    "del-cli": "^0.2.0",
+    "eslint": "^2.13.1",
+    "eslint-config-cssnano": "^2.0.0",
+    "gulp-postcss": "^6.1.1",
+    "nyc": "^6.0.0",
+    "postcss-cssnext": "^2.6.0",
+    "postcss-discard-comments": "^2.0.3",
+    "postcss-discard-font-face": "^3.0.0",
+    "precss": "^1.4.0"
+  },
+  "homepage": "https://github.com/postcss/postcss-use",
+  "author": {
+    "name": "Ben Briggs",
+    "email": "beneb.info@gmail.com",
+    "url": "http://beneb.info"
+  },
+  "repository": "postcss/postcss-use",
+  "dependencies": {
+    "balanced-match": "^0.4.1",
+    "postcss": "^5.0.21",
+    "resolve-from": "^2.0.0"
+  },
+  "ava": {
+    "require": "babel-register"
+  },
+  "eslintConfig": {
+    "extends": "cssnano"
+  }
+}

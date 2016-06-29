@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/list.js"></script>
+    <link rel="stylesheet" href="dest/style.css">
+    <link rel="stylesheet" href="dest/bootstrap.min.css">
+
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body ng-app="listModule">
+<div class="container-fluid">
+    <div class="container" ng-controller="myController">
+        <div class="row bg-primary main">
+            <div class="col-md-6 title">ListDatabase</div>
+            <div class="col-md-6">Search : <input type="text" placeholder="Search adress" ng-model="searchText"></div>
+        </div>
+        <div class="row bg-primary addlist">
+            <div class="col-md-12">
+                <form ng-submit="addContact()">
+                    <input type="text" ng-model="name" placeholder="name...">
+                    <input type="text" ng-model="number" placeholder="number...">
+                    <input type="text" ng-model="city" placeholder="city...">
+                    <input type="submit" value="add">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 lists" ng-repeat="list in lists | filter:searchText">
+                <p>{{list.name}}</p>
+                <p>Nuber : {{list.number}}</p>
+                <p>City : {{list.city}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
