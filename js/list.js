@@ -33,13 +33,13 @@
                             $scope.city = "";
                         }
 
-                        var name = localStorageService.get('lists.name');
-                        var number = localStorageService.get('lists.number');
-                        var city = localStorageService.get('lists.city');
+                        var name = localStorageService.get('name');
+                        var number = localStorageService.get('number');
+                        var city = localStorageService.get('city');
 
-                        localStorageService.set("", name);
-                        localStorageService.set("", number);
-                        localStorageService.set("", city);
+                        localStorageService.set("name", JSON.stringify($scope.name));
+                        localStorageService.set("number", JSON.stringify($scope.number));
+                        localStorageService.set("city", JSON.stringify($scope.city));
                     }
                 }])
                 .config(function (localStorageServiceProvider) {
