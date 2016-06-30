@@ -1,6 +1,6 @@
             var app = angular
                 .module("listModule", ['LocalStorageModule'])
-                .controller("listController", ['$scope',function ($scope) {
+                .controller("listController", ['$scope', 'localStorageService', function ($scope, $users) {
                     $scope.lists =
                         [
                             {
@@ -24,6 +24,7 @@
                                 "city": "Lviv",
                             }
                         ];
+
                     $scope.addContact = function () {
                         if ($scope.name && $scope.number && $scope.city) {
                             $scope.lists.push({name: $scope.name, number: $scope.number, city: $scope.city});
@@ -31,7 +32,7 @@
                             $scope.number = "";
                             $scope.city = "";
                         }
-
+                        $users.addItem($scope.name, $scope.number, $scope.city);
                     }
                 }])
                 .config(function (localStorageServiceProvider) {
@@ -39,21 +40,13 @@
                         .setPrefix('listModule')
                 });
 
-            app.service('usersDataService', 'localStorageService', '$window', function(localStorageService, $window)
+            app.service('usersDataService', [ 'localStorageService', '$window','$users', function(localStorageService,$users,$window)
             {
                 var storage = [],
                     self    = this,
                     syncOn  = true;
 
                 this.loaded = false;
-
-                this.getItems = function(offset) {
-                    return storage;
-                };
-
-                this.count = function() {
-                    return storage.length;
-                };
 
                 this.addItem = function(name, number, city) {
                     return storage.push({
@@ -63,9 +56,8 @@
                     });
 
                     function save() {
-                        localStorageService.set("lists", JSON.stringify(storage));
+                        localStorageService.set("lists", JSON.stringify($users));
                     }
-
                     function load() {
                         if (self.loaded) return true;
                         var lists = localStorageService.get('lists');
@@ -97,5 +89,5 @@
                 }
 
 
-                });
+                }]);
 
