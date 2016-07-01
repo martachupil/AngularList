@@ -1,6 +1,6 @@
             var app = angular
                 .module("listModule", ['LocalStorageModule'])
-                .controller("listController", ['$scope', 'localStorageService', function ($scope, $users) {
+                .controller("listController", ['$scope', 'localStorageService', function ($scope,localStorageService, $users) {
                     $scope.lists =
                         [
                             {
@@ -64,7 +64,7 @@
                         storage = [];
                         if (lists !== null) {
                             try {
-                                storage = JSON.parse(lists);
+                                storage = JSON.parse($users);
                                 self.loaded = true;
                             } catch (McConaughey) {
                                 console.error('Failed to fetch storage data', McConaughey);
@@ -87,7 +87,6 @@
                         }
                     };
                 }
-
 
                 }]);
 
