@@ -25,7 +25,7 @@
                             }
                         ];
                     $scope.settings = {};
-                    $scope.lists = $users;
+
                     $scope.addContact = function () {
                         if ($scope.name && $scope.number && $scope.city) {
                             $scope.lists.push({name: $scope.name, number: $scope.number, city: $scope.city});
@@ -39,10 +39,10 @@
 
 
 
-            app.service('usersDataService', ['localStorageService', '$window', function($scope, localStorageService, $users) {
+            app.service('usersDataService', ['localStorageService', '$window', function($scope,localStorageService, $users) {
 
             var storage = [];
-                $users.addItem($scope.name, $scope.number, $scope.city);
+                storage.addItem($scope.name, $scope.number, $scope.city);
             this.getItem = function(itemId) {
                 return (angular.isDefined(storage[itemId])) ? storage[itemId] : null;
             };
