@@ -1,34 +1,18 @@
             var app = angular
                 .module("listModule", ['LocalStorageModule'])
-                .controller("listController", ['$scope', 'localStorageService', function ($scope, usersDataService,$window, $users) {
-                    $scope.lists =
-                        [
-                            {
-                                "name": "John Stark",
-                                "number": "09533305",
-                                "city": "Kiev",
-                            },
-                            {
-                                "name": "Inga Tirel",
-                                "number": "097773305",
-                                "city": "Valiria",
-                            },
-                            {
-                                "name": "Marta Targarien",
-                                "number": "09883305",
-                                "city": "Werteros",
-                            },
-                            {
-                                "name": "Denis Lanister",
-                                "number": "09883305",
-                                "city": "Lviv",
-                            }
-                        ];
+                .controller("listController", ['$scope', 'usersDataService', function ($scope, usersDataService) {
+                    $scope.lists = usersDataService.getData();
                     $scope.settings = {};
+
+
 
                     $scope.addContact = function () {
                         if ($scope.name && $scope.number && $scope.city) {
-                            $scope.lists.push({name: $scope.name, number: $scope.number, city: $scope.city});
+                            usersDataService.addItem({
+                                name: $scope.name,
+                                number: $scope.number,
+                                city: $scope.city
+                            });
                             $scope.name = "";
                             $scope.number = "";
                             $scope.city = "";
@@ -39,20 +23,56 @@
 
 
 
-            app.service('usersDataService', ['localStorageService', '$window', function($scope,localStorageService, $users) {
+            app.service('usersDataService', ['$window', function($window) {
 
-            var storage = [];
-                storage.addItem($scope.name, $scope.number, $scope.city);
-            this.getItem = function(itemId) {
-                return (angular.isDefined(storage[itemId])) ? storage[itemId] : null;
-            };
+                var items = [];
 
-            this.exists = function(itemId) {
-                return angular.isDefined(storage[itemId]);
-            };
+                this.addItem = function(item) {
+                    items.push(item);
+                };
 
-            function save() {
-                localStorageService.set('items', JSON.stringify(storage));
-            }
+                this.getData = function () {
+                    return items;
+                };
+
+                function importFromLocalStorage() {
+                  var data = $window.localStorage.getItem("addressBook");
+
+                    if(data == null) {
+                        items = [];
+                    } else {
+                        items = JSON.parse(data);
+                    }
+                }
+
+                function saveToLocalStorage() {
+                    $window.localStorage.setItem("addressBook", JSON.stringify(items) );
+                }
+
+
+                $window.onbeforeunload = function(event) {
+                    saveToLocalStorage();
+                };
+
+                importFromLocalStorage();
+
+
+
+
+
+
+                // var storage = [];
+            //     storage.addItem($scope.name, $scope.number, $scope.city);
+            // this.getItem = function(itemId) {
+            //     return (angular.isDefined(storage[itemId])) ? storage[itemId] : null;
+            // };
+            //
+            // this.exists = function(itemId) {
+            //     return angular.isDefined(storage[itemId]);
+            // };
+            //
+            // function save() {
+            //     localStorageService.set('items', JSON.stringify(storage));
+            // }
 
             }]);
