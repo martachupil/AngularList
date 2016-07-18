@@ -56,23 +56,4 @@
 
                 importFromLocalStorage();
 
-
-
-
-
-
-                // var storage = [];
-            //     storage.addItem($scope.name, $scope.number, $scope.city);
-            // this.getItem = function(itemId) {
-            //     return (angular.isDefined(storage[itemId])) ? storage[itemId] : null;
-            // };
-            //
-            // this.exists = function(itemId) {
-            //     return angular.isDefined(storage[itemId]);
-            // };
-            //
-            // function save() {
-            //     localStorageService.set('items', JSON.stringify(storage));
-            // }
-
             }]);
